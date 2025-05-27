@@ -1,21 +1,20 @@
-# Stage 1: Build the app
-FROM node:18-alpine AS builder
+# Use the official Node.js image as the base image
+FROM node:alpine3.18
 
+# Set the working directory inside the container
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci
+# Copy package.json and package-lock.json to the working directory
+COPY package.json ./
 
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application code to the working directory
 COPY . .
-RUN npm run build  # Энэ нь зөвхөн 'build' script байвал ажиллана
 
-# Stage 2: Serve with Nginx
-FROM nginx:stable-alpine
+# Expose the port the app runs on
+EXPOSE 8000
 
-RUN rm -rf /usr/share/nginx/html/*
-
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+# Command to run the application
+CMD ["npm", "run", "start"]
