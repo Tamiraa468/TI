@@ -16,23 +16,23 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build Docker image
-        run: docker build -t tamiraa468/ti_back:latest .
+        run: docker build -t tamiraa468/logistik-back:latest .
 
       - name: Push Docker image to DockerHub
-        run: docker push tamiraa468/ti_back:latest
+        run: docker push tamiraa468/logistik-back:latest
 
   deploy:
     needs: build
     runs-on: self-hosted
     steps:
       - name: Pull image from DockerHub
-        run: docker pull tamiraa468/ti_back:latest
+        run: docker pull tamiraa468/logistik-back:latest
 
       - name: Stop existing container
-        run: docker stop ti_back || true
+        run: docker stop logistik-back || true
 
       - name: Remove existing container
-        run: docker rm ti_back || true
+        run: docker rm logistik-back || true
 
       - name: Run new container
-        run: docker run -d -p 8000:8000 --name ti_back -e MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} tamiraa468/ti_back:latest
+        run: docker run -d -p 8000:8000 --name logistik-back -e MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} tamiraa468/logistik-back:latest
