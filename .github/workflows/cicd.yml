@@ -1,4 +1,4 @@
-name: Deploy node app to production
+name: Deploy node app to productiond
 
 on:
   push:
