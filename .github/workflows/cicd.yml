@@ -35,4 +35,4 @@ jobs:
         run: docker rm ti_back || true
 
       - name: Run new container
-        run: docker run -d --restart unless-stopped -p 8000:8000 --name ti_back -e MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} tamiraa468/ti_back:latest
+        run: docker run -d -p 8000:8000 --name ti_back -e MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} tamiraa468/ti_back:latest
