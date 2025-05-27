@@ -16,7 +16,7 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t tamiraa468/ti_back:latest .
+        run: docker build -t tamiraa468/ti_back:latest.
 
       - name: Push Docker image to DockerHub
         run: docker push tamiraa468/ti_back:latest
